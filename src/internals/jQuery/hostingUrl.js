@@ -1,1 +1,0 @@
-onmjs.internals.jQuery.hostingUrl = 'http://i.onmeda.de/nav/jquery.js';

@@ -1,2 +1,0 @@
-		/** @namespace All the browser info functions here.. */
-onmjs.utils.getBrowserInfo = {};
