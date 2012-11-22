@@ -1,6 +1,0 @@
-/** @namespace Holds all the autoSuggest stuff */
-onmjs.utils.autoSuggest = {
-	timer: false,
-
-	activeItem: null,
-};
