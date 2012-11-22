@@ -1,0 +1,16 @@
+/*global onmjs */
+onmjs.articles.coverPubDate = function (opts) {
+	if (typeof opts === 'string') {
+		document.write(opts);
+		return;
+	}
+	if (opts.encoded) {
+		opts.pubDate = onmjs.utils.rot13(opts.pubDate);
+		opts.pubDate = onmjs.utils.string_reverse(opts.pubDate);
+	}
+	if (typeof opts.renderTo === 'string') {
+		onmjs.get('#' + opts.renderTo).innerHTML = opts.pubDate;
+	} else {
+		opts.renderTo.innerHTML = opts.pubDate;
+	}
+};

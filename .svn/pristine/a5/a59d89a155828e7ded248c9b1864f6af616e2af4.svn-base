@@ -1,0 +1,5 @@
+onmjs.img.switcher = function(obj,url) {
+
+	obj.src = url;
+
+};

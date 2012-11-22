@@ -1,0 +1,47 @@
+/*global onmjs*/
+onmjs.articles.chapters.fx.hide = function (opts) {
+	var ChapterUniqueID = opts.articleId,
+		chapter_max = opts.chaptersMax,
+		chapter_visible = opts.chaptersVisible,
+		lang = opts.translation,
+		i = 0,
+		a = null,
+		o = onmjs.get('#KAPITEL_SLIDER');
+
+	onmjs.articles.chapters.fx.manageCookies(ChapterUniqueID);
+
+	for (i = 1; i <= chapter_max; i + 1) {
+
+		if (i !== chapter_visible[0] &&
+				i !== chapter_visible[1] &&
+				i !== chapter_visible[2]) {
+
+			a = onmjs.get('#chapter_' + i);
+
+			a.className = 'KAPITEL_WEG';
+
+		}
+
+	}
+
+	//o.innerHTML = 'Inhaltsverzeichnis einblenden';
+	o.innerHTML = lang.showChapters;
+
+	o.onclick = function () {
+		onmjs.articles.chapters.fx.show({
+			'articleId': ChapterUniqueID,
+			'chaptersMax': chapter_max,
+			'chaptersVisible': [chapter_visible],
+			'translation': {
+				'showChapters': lang.showChapters,
+				'hideChapters': lang.hideChapters
+			}
+		});
+	};
+
+	o.href = '#dummyClicked';
+
+	o.className = 'KAPITEL_SLIDER_EIN';
+
+
+};

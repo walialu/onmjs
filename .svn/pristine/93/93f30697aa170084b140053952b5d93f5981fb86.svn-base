@@ -1,0 +1,7 @@
+onmjs.utils.getKeyCode = function(evt) {
+
+	evt =  evt || window.event;
+
+	return evt.keyCode;
+
+};
