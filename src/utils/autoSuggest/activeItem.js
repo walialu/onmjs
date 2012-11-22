@@ -1,0 +1,1 @@
+onmjs.utils.autoSuggest.activeItem = null;

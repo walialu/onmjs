@@ -1,0 +1,30 @@
+/**
+ * Copies a value from, to, keyName
+ * "from" is a Object-Reference as is "to"
+ * "keyName" is a string
+ *
+ * It returns false if the copying failed
+ */
+onmjs.utils.copyValue = function(from, to, keyName) {
+
+	if (from && to && from[keyName]) {
+
+		if(typeof to.setAttribute == 'function') {
+
+			to.setAttribute(keyName, from.getAttribute(keyName));
+
+		} else {
+
+			to[keyName] = from[keyName];
+
+		}
+
+	} else {
+
+		return null;
+
+	}
+
+	return false;
+
+};
