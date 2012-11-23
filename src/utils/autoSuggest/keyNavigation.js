@@ -40,9 +40,12 @@ onmjs.utils.autoSuggest.keyNavigation = function(evt,textfield) {
 				pNode = pNode.parentNode;
 			}
 
-			// we are submitting the form now
-			pNode.submit();
-
+			if (typeof onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit === 'function') {
+				onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit();
+			} else {
+				// we are submitting the form now
+				pNode.submit();
+			}
 		}
 
 	}

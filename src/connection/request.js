@@ -45,6 +45,10 @@ onmjs.connection.request = function(cfg) {
 
 		xmlHttp.open(cfg.method, cfg.url, true);
 
+		if (cfg.oldPost) {
+			xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		}
+
 		xmlHttp.onreadystatechange = function () {
 
 			if (xmlHttp.readyState == 4) {

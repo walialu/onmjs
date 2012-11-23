@@ -41,6 +41,7 @@ onmjs.utils.autoSuggest.init = function(opts) {
 
 	// init dataStore
 	onmjs.internals.dataStores.utils.autoSuggest[opts.id] = {};
+	onmjs.internals.dataStores.utils.autoSuggest[opts.id] = opts;
 
 	if (opts.timeout) {
 

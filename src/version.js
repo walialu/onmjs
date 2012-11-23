@@ -1,2 +1,2 @@
 /*global onmjs */
-onmjs.version = '0.0.48';
+onmjs.version = '0.0.69';

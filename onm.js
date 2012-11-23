@@ -192,7 +192,7 @@ onmjs.on = function(m,callback) {
 };
 
 /*global onmjs */
-onmjs.version = '0.0.48';
+onmjs.version = '0.0.69';
 
 /*global onmjs */
 var onmedaJS = {
@@ -1119,6 +1119,10 @@ onmjs.connection.request = function(cfg) {
 		cfg.method = cfg.method.toUpperCase();
 
 		xmlHttp.open(cfg.method, cfg.url, true);
+
+		if (cfg.oldPost) {
+			xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		}
 
 		xmlHttp.onreadystatechange = function () {
 
@@ -3080,6 +3084,41 @@ onmjs.internals.jQuery.setLoaded = function(value) {
 onmjs.internals.jQuery.version = '1.7.1';
 
 /** @namespace */
+onmjs.search = {};
+
+onmjs.search.modal_result_window = function (opts) {
+	var val = onmjs.get('#SCHNELLSUCHE_WERT').value,
+		response = null,
+		div = document.createElement('div');
+
+	onmjs.connection.request({
+		method: 'POST',
+		url: '/suche/ajax_compact.php',
+		oldPost: true,
+		params: 'q=' + escape( val ),
+		success: function (r) {
+			response = onmjs.decode.json(r);
+			if (onmjs.get('#KOMPAKTSUCHE') !== null) {
+				onmjs.get('#KOMPAKTSUCHE').parentNode.removeChild(onmjs.get('#KOMPAKTSUCHE'));
+			}
+			div.innerHTML = response.data;
+			document.body.appendChild(div);
+
+			// hacky hacky
+			div = onmjs.get('#KOMPAKTSUCHE').cloneNode(true);
+			onmjs.get('#KOMPAKTSUCHE').parentNode.parentNode.removeChild(onmjs.get('#KOMPAKTSUCHE').parentNode);
+
+			document.body.appendChild(div);
+		},
+		failure: function (r) {
+
+		}
+	});
+
+	return false;
+};
+
+/** @namespace */
 onmjs.social = {};
 
 /** @namespace */
@@ -4019,6 +4058,7 @@ onmjs.utils.autoSuggest.init = function(opts) {
 
 	// init dataStore
 	onmjs.internals.dataStores.utils.autoSuggest[opts.id] = {};
+	onmjs.internals.dataStores.utils.autoSuggest[opts.id] = opts;
 
 	if (opts.timeout) {
 
@@ -4110,9 +4150,12 @@ onmjs.utils.autoSuggest.keyNavigation = function(evt,textfield) {
 				pNode = pNode.parentNode;
 			}
 
-			// we are submitting the form now
-			pNode.submit();
-
+			if (typeof onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit === 'function') {
+				onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit();
+			} else {
+				// we are submitting the form now
+				pNode.submit();
+			}
 		}
 
 	}
@@ -4336,13 +4379,13 @@ onmjs.window = {};
 
 /*global onmjs, console */
 onmjs.window.open = function (opts) {
-	var width,
-		height,
-		resizable,
-		scrollbars,
+	var width = 'width=320',
+		height ='height=240',
+		resizable ='resizable=0',
+		scrollbars = 'scrollbars=0',
 		opts2,
 		win,
-		windowId;
+		windowId = '';
 
 	if (!opts.url) {
 
@@ -4356,6 +4399,12 @@ onmjs.window.open = function (opts) {
 	if (opts.id) {
 
 		windowId = opts.id;
+
+	}
+
+	if (opts.scrollbars) {
+
+		scrollbars = 'scrollbars=1';
 
 	}
 
@@ -4389,7 +4438,7 @@ onmjs.window.open = function (opts) {
 	}
 
 
-	opts2 = width + height + resizable;
+	opts2 = width + ',' + height + ',' + resizable + ',' + scrollbars;
 
 
 	win = window.open(opts.url, windowId, opts2);

@@ -1,12 +1,12 @@
 /*global onmjs, console */
 onmjs.window.open = function (opts) {
-	var width,
-		height,
-		resizable,
-		scrollbars,
+	var width = 'width=320',
+		height ='height=240',
+		resizable ='resizable=0',
+		scrollbars = 'scrollbars=0',
 		opts2,
 		win,
-		windowId;
+		windowId = '';
 
 	if (!opts.url) {
 
@@ -20,6 +20,12 @@ onmjs.window.open = function (opts) {
 	if (opts.id) {
 
 		windowId = opts.id;
+
+	}
+
+	if (opts.scrollbars) {
+
+		scrollbars = 'scrollbars=1';
 
 	}
 
@@ -53,7 +59,7 @@ onmjs.window.open = function (opts) {
 	}
 
 
-	opts2 = width + height + resizable;
+	opts2 = width + ',' + height + ',' + resizable + ',' + scrollbars;
 
 
 	win = window.open(opts.url, windowId, opts2);
