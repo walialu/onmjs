@@ -3114,6 +3114,13 @@ onmjs.search.modal_result_window = function (opts) {
 			onmjs.get('#KOMPAKTSUCHE').parentNode.parentNode.removeChild(onmjs.get('#KOMPAKTSUCHE').parentNode);
 
 			document.body.appendChild(div);
+
+			onmjs.tracker.ivw.track({
+				tag: '0-3299'
+			});
+			onmjs.tracker.googleAnalytics.track({
+				gaCode: location.href
+			});
 		},
 		failure: function (r) {
 
