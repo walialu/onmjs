@@ -192,7 +192,7 @@ onmjs.on = function(m,callback) {
 };
 
 /*global onmjs */
-onmjs.version = '0.0.69';
+onmjs.version = '0.0.73';
 
 /*global onmjs */
 var onmedaJS = {
@@ -3087,9 +3087,14 @@ onmjs.internals.jQuery.version = '1.7.1';
 onmjs.search = {};
 
 onmjs.search.modal_result_window = function (opts) {
-	var val = onmjs.get('#SCHNELLSUCHE_WERT').value,
+	var txtfield = onmjs.get('#SCHNELLSUCHE_WERT'),
+		val = txtfield.value,
 		response = null,
 		div = document.createElement('div');
+
+	if (onmjs.utils.autoSuggest.listIsVisible(txtfield)) {
+		onmjs.utils.autoSuggest.clear(txtfield);
+	}
 
 	onmjs.connection.request({
 		method: 'POST',
@@ -4150,11 +4155,17 @@ onmjs.utils.autoSuggest.keyNavigation = function(evt,textfield) {
 				pNode = pNode.parentNode;
 			}
 
+			onmjs.utils.autoSuggest.clear(textfield);
+
+			clearTimeout(onmjs.utils.autoSuggest.timer);
+
+			onmjs.utils.autoSuggest.timer=null;
+
 			if (typeof onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit === 'function') {
-				onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit();
+				onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit(); return true;
 			} else {
 				// we are submitting the form now
-				pNode.submit();
+				pNode.submit(); return true;
 			}
 		}
 

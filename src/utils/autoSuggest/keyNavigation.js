@@ -40,11 +40,17 @@ onmjs.utils.autoSuggest.keyNavigation = function(evt,textfield) {
 				pNode = pNode.parentNode;
 			}
 
+			onmjs.utils.autoSuggest.clear(textfield);
+
+			clearTimeout(onmjs.utils.autoSuggest.timer);
+
+			onmjs.utils.autoSuggest.timer=null;
+
 			if (typeof onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit === 'function') {
-				onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit();
+				onmjs.internals.dataStores.utils.autoSuggest[textfield.id].onsubmit(); return true;
 			} else {
 				// we are submitting the form now
-				pNode.submit();
+				pNode.submit(); return true;
 			}
 		}
 

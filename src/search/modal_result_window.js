@@ -1,7 +1,12 @@
 onmjs.search.modal_result_window = function (opts) {
-	var val = onmjs.get('#SCHNELLSUCHE_WERT').value,
+	var txtfield = onmjs.get('#SCHNELLSUCHE_WERT'),
+		val = txtfield.value,
 		response = null,
 		div = document.createElement('div');
+
+	if (onmjs.utils.autoSuggest.listIsVisible(txtfield)) {
+		onmjs.utils.autoSuggest.clear(txtfield);
+	}
 
 	onmjs.connection.request({
 		method: 'POST',
