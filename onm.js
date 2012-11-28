@@ -192,7 +192,7 @@ onmjs.on = function(m,callback) {
 };
 
 /*global onmjs */
-onmjs.version = '0.0.73';
+onmjs.version = '0.0.74';
 
 /*global onmjs */
 var onmedaJS = {
@@ -3405,6 +3405,20 @@ onmjs.tracker.googleAnalytics.track = function (opts) {
 
 
 	ds.pageTracker._trackPageview(gaCode);
+
+};
+
+/**
+ * Will send a request to Google Analytics
+ *
+ * @example
+ * onmjs.tracker.googleAnalytics.trackVirtual();
+ */
+onmjs.tracker.googleAnalytics.trackVirtual = function () {
+
+	onmjs.tracker.googleAnalytics.track({
+		gaCode: (""+document.location).replace(/^http:\/\/.*?\//gi,"/virtual/")
+	});
 
 };
 
