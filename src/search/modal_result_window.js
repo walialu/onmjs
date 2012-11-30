@@ -31,7 +31,7 @@ onmjs.search.modal_result_window = function (opts) {
 				tag: '0-3299'
 			});
 			onmjs.tracker.googleAnalytics.track({
-				gaCode: location.href
+				gaCode: '/suche-kompakt/?q=' + escape(val)
 			});
 		},
 		failure: function (r) {

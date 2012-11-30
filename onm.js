@@ -192,7 +192,7 @@ onmjs.on = function(m,callback) {
 };
 
 /*global onmjs */
-onmjs.version = '0.0.74';
+onmjs.version = '0.0.76';
 
 /*global onmjs */
 var onmedaJS = {
@@ -696,7 +696,7 @@ onmjs.articles.sponsoredBy.infoIcon.toggle = function () {
 		obj = document.getElementById('SPON_INFO_TEXT'),
 		typeOfSpon = typeof (obj),
 		normalMode = 1,
-		wlocation = window.location,
+		wlocation = window.location.href,
 		div = document.createElement('div'),
 		curleft = 0,
 		curtop = 0,
@@ -3119,7 +3119,7 @@ onmjs.search.modal_result_window = function (opts) {
 				tag: '0-3299'
 			});
 			onmjs.tracker.googleAnalytics.track({
-				gaCode: location.href
+				gaCode: '/suche-kompakt/?q=' + escape(val)
 			});
 		},
 		failure: function (r) {
